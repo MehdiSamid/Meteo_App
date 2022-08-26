@@ -1,0 +1,6 @@
+Api key :
+07a37b042328196e21b028405ff33685
+
+https://api.openweathermap.org/data/2.5/weather
+
+api.openweathermap.org/data/2.5/forecast?lat=35&lon=139&appid={API key}

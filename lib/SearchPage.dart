@@ -2,9 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert' as convert;
 
+
 class SearchPage extends StatelessWidget {
   final String text;
-   SearchPage({super.key, required this.text});
+  Map<String, dynamic> data = {};
+
+  SearchPage({super.key, required this.text});
 
 //   @override
 //   State<SearchPage> createState() => _SearchPageState();
@@ -26,9 +29,9 @@ class SearchPage extends StatelessWidget {
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,
-        children:  <Widget>[
+        children: <Widget>[
           IconButton(
-            onPressed: () => _getDataMet(),
+            onPressed: () => print(data),
             icon: const Icon(Icons.add),
           ),
         ],
@@ -36,7 +39,8 @@ class SearchPage extends StatelessWidget {
     );
   }
 
-   _getDataMet() async {
+  _getDataMet() async {
+    
     const String apiKey = '07a37b042328196e21b028405ff33685';
     var url = Uri.https('api.openweathermap.org', '/data/2.5/weather',
         {'q': text, 'units': 'metric', 'appid': apiKey});
@@ -45,25 +49,27 @@ class SearchPage extends StatelessWidget {
     if (response.statusCode == 200) {
       var jsonResponse =
           convert.jsonDecode(response.body) as Map<String, dynamic>;
-      Map<String, dynamic> MainWheather = jsonResponse['main'];
+     List weather = jsonResponse['weather'] ;
       // print(jsonResponse);
       // print(jsonResponse['main'] as Map<String, dynamic>);
       // print(MainWheather.keys.first);
-
-      return jsonResponse['name'];
+      data.addAll({
+        'Ville ': text,
+        'Temp is ': jsonResponse['main']['temp'],
+         'icon ': weather.map((e) => e['icon'].toString())
+      });
+      
+      
+      
+      
+      // print(weather.map((e) => e['icon'].toString()));
+      
+      return data;
     } else {
       return Null;
     }
   }
 
   // ignore: non_constant_identifier_names
-  Widget Showit = Column(
-    mainAxisAlignment: MainAxisAlignment.start,
-    crossAxisAlignment: CrossAxisAlignment.center,
-    children: <Widget>[
-      Container(
-        child: Text(''),
-      ),
-    ],
-  );
+
 }

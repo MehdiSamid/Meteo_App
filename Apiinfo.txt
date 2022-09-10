@@ -4,3 +4,7 @@ Api key :
 https://api.openweathermap.org/data/2.5/weather
 
 api.openweathermap.org/data/2.5/forecast?lat=35&lon=139&appid={API key}
+
+
+for Icon ===
+

@@ -1,8 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:meteo_mar/SearchPage.dart';
+import 'package:meteo_mar/model/FinalData.dart';
+import 'package:meteo_mar/show_met.dart';
+import 'package:meteo_mar/view_page.dart';
+import 'package:provider/provider.dart';
 
 void main() {
-  runApp(const Myapp());
+  runApp( MultiProvider(
+    providers: [
+      ChangeNotifierProvider(create: (_) =>  FinalData(),
+      )
+    ],
+    child: Myapp(),));
 }
 
 class Myapp extends StatelessWidget {
@@ -66,7 +74,8 @@ class HomePage extends StatelessWidget {
                 context,
                 MaterialPageRoute(
                   builder: (BuildContext context) =>
-                      SearchPage(text: entries[index]),
+                      // SearchPage(text: entries[index]),
+                      const show_data(),
                 ),
               ),
               child: Container(

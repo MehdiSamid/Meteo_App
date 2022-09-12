@@ -5,12 +5,14 @@ import 'package:meteo_mar/view_page.dart';
 import 'package:provider/provider.dart';
 
 void main() {
-  runApp( MultiProvider(
+  runApp(MultiProvider(
     providers: [
-      ChangeNotifierProvider(create: (_) =>  FinalData(),
+      ChangeNotifierProvider(
+        create: (_) => FinalData(),
       )
     ],
-    child: Myapp(),));
+    child: Myapp(),
+  ));
 }
 
 class Myapp extends StatelessWidget {
@@ -28,7 +30,7 @@ class Myapp extends StatelessWidget {
   }
 }
 
-class HomePage extends StatelessWidget {
+class HomePage extends StatelessWidget with ChangeNotifier {
   HomePage({super.key});
   final List<String> entries = <String>[
     'Casablanca',
@@ -47,18 +49,6 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        actions: <Widget>[
-          IconButton(
-            onPressed: () => Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (BuildContext context) =>
-                     SearchPage(text: 'casablanca'),
-              ),
-            ),
-            icon: const Icon(Icons.access_time),
-          )
-        ],
         centerTitle: true,
         title: const Text('Meteo Maroc'),
       ),
@@ -69,14 +59,22 @@ class HomePage extends StatelessWidget {
           itemCount: entries.length,
           itemBuilder: (BuildContext context, int index) {
             return GestureDetector(
-              onDoubleTap: () => print('${entries[index]} is clicked'),
+              
               onTap: () => Navigator.push(
                 context,
                 MaterialPageRoute(
                   builder: (BuildContext context) =>
-                      // SearchPage(text: entries[index]),
-                      const show_data(),
+                      ChangeNotifierProvider
+                      (
+                        
+                        create: (context) => FinalData(),
+                        child: show_data( city: entries[index])),
+                       
+                      
                 ),
+                
+                
+               
               ),
               child: Container(
                 decoration: const BoxDecoration(
@@ -110,12 +108,8 @@ class HomePage extends StatelessWidget {
           separatorBuilder: (BuildContext context, int index) =>
               const Divider(),
         ),
+        
       ),
     );
   }
-
-
-
-
-  
 }

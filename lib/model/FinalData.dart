@@ -20,7 +20,7 @@ class FinalData with ChangeNotifier{
           convert.jsonDecode(response.body) as Map<String, dynamic>;
           
           MetData.add(Met_data.fromJson(jsonResponse));
-          print(city);
+          print(jsonResponse['name']);
           return MetData;
     } else {
      print(response.statusCode);

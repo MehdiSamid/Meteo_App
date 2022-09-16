@@ -22,9 +22,9 @@ class Myapp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        primarySwatch: Colors.teal,
-      ),
+      theme:ThemeData.dark().copyWith(
+        colorScheme: const ColorScheme.light().copyWith(primary: Colors.deepPurple),
+        ),
       home: HomePage(),
     );
   }
@@ -49,6 +49,7 @@ class HomePage extends StatelessWidget with ChangeNotifier {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        automaticallyImplyLeading: false,
         centerTitle: true,
         title: const Text('Meteo Maroc'),
       ),
@@ -79,26 +80,28 @@ class HomePage extends StatelessWidget with ChangeNotifier {
               child: Container(
                 decoration: const BoxDecoration(
                   borderRadius: BorderRadius.all(Radius.circular(15)),
-                  color: Colors.blueGrey,
+                  color: Color.fromARGB(247, 27, 30, 29),
                 ),
                 height: 400,
 
                 // child: Center(child: Text('Entry ${entries[index]}')),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
+                  
                   children: <Widget>[
                     Image.asset(City[index]),
+                    const SizedBox(
+                      height: 30,
+                    ),
                     Text(
+                      
                       entries[index],
                       textAlign: TextAlign.center,
                       style: const TextStyle(
                           height: 2,
                           fontSize: 26,
-                          color: Colors.white,
+                          color: Color.fromARGB(255, 255, 255, 255),
                           fontWeight: FontWeight.bold),
-                    ),
-                    Row(
-                      children: const <Widget>[],
                     ),
                   ],
                 ),

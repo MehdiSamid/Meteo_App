@@ -24,6 +24,7 @@ class Myapp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       theme:ThemeData.dark().copyWith(
         colorScheme: const ColorScheme.light().copyWith(primary: Colors.deepPurple),
+        
         ),
       home: HomePage(),
     );

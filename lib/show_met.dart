@@ -5,6 +5,7 @@ import 'package:meteo_mar/main.dart';
 import 'package:meteo_mar/model/FinalData.dart';
 import 'package:meteo_mar/model/Met_data.dart';
 import 'package:provider/provider.dart';
+import 'package:intl/intl.dart';
 
 class show_data extends StatefulWidget {
   show_data({Key? key, required this.city}) : super(key: key);
@@ -15,10 +16,13 @@ class show_data extends StatefulWidget {
 }
 
 class _show_dataState extends State<show_data> {
+  DateTime now = DateTime.now();
+  final String message =
+      DateTime.now().hour < 12 ? "Good morning" : "Good afternoon";
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      
       appBar: AppBar(
         automaticallyImplyLeading: false,
         leading: IconButton(
@@ -58,17 +62,39 @@ class _show_dataState extends State<show_data> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: <Widget>[
-                        Text(data[index].vl),
+                        const Padding(padding: EdgeInsets.only(top: 60)),
+                        Text(
+                          data[index].vl,
+                          style: const TextStyle(
+                              fontSize: 26, fontWeight: FontWeight.bold),
+                        ),
                         Image.network(
                             'http://openweathermap.org/img/wn/${data[index].ic.toString()}@2x.png'),
                         Text(
-                          '${data[index].temp.toStringAsFixed(0)} °C',
+                          '${data[index].temp.toStringAsFixed(0)}°C',
                           style: const TextStyle(
-                            color: Colors.black87,
+                            color: Colors.white,
                             fontSize: 36,
                           ),
                         ),
-                        Text(data[index].desc.toString(),),
+                        const SizedBox(
+                          height: 10,
+                        ),
+                        Text(
+                          data[index].desc.toString(),
+                          style: const TextStyle(
+                              fontSize: 22, color: Colors.white70),
+                        ),
+                        const SizedBox(
+                          height: 50,
+                        ),
+                        Text(
+                          message,
+                          style: const TextStyle(
+                              backgroundColor: Color.fromARGB(165, 87, 22, 99),
+                              color: Colors.white,
+                              fontSize: 28),
+                        )
                       ],
                     );
                   },
